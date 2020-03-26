@@ -1,0 +1,198 @@
+[[compartments]]
+id = 'c'
+name = 'cytosol'
+volume = 1
+
+[[compartments]]
+id = 'e'
+name = 'external'
+volume = 1
+
+[[metabolites]]
+id = 'M1'
+name = 'External metabolite number 1'
+balanced = false
+compartment = 'e'
+
+[[metabolites]]
+id = 'M2'
+name = 'External metabolite number 2'
+balanced = false
+compartment = 'e'
+
+[[metabolites]]
+id = 'M4'
+name = 'External metabolite number 4'
+balanced = false
+compartment = 'e'
+
+[[metabolites]]
+id = 'M1'
+name = 'Metabolite number 1'
+balanced = true
+compartment = 'c'
+
+[[metabolites]]
+id = 'M2'
+name = 'Metabolite number 2'
+balanced = true
+compartment = 'c'
+
+[[metabolites]]
+id = 'M3'
+name = 'Metabolite number 3'
+balanced = true
+compartment = 'c'
+
+[[metabolites]]
+id = 'M4'
+name = 'Metabolite number 4'
+balanced = true
+compartment = 'c'
+
+[[reactions]]
+id = 'r1'
+name = 'reaction number 1'
+stoichiometry = { M1_e = -1, M1_c = 1}
+[[reactions.enzymes]]
+id = 'r1'
+name = 'the enzyme that catalyses reaction r1'
+mechanism = 'modular_rate_law'
+allosteric_inhibitors = ['M4_c']
+
+[[reactions]]
+id = 'r2'
+name = 'reaction number 2'
+stoichiometry = { M1_c = -1, M2_c = 1, M3_c = 1 }
+[[reactions.enzymes]]
+id = 'r2'
+name = 'the enzyme that catalyses reaction r2'
+mechanism = 'modular_rate_law'
+
+[[reactions]]
+id = 'r3'
+name = 'reaction number 3'
+stoichiometry = { M3_c = -1, M4_c = 1 }
+[[reactions.enzymes]]
+id = 'r3'
+name = 'the enzyme that catalyses reaction r3'
+mechanism = 'modular_rate_law'
+
+[[reactions]]
+id = 'r4'
+name = 'reaction number 4'
+stoichiometry = { M4_c = -1, M4_e = 1 }
+[[reactions.enzymes]]
+id = 'r4'
+name = 'the enzyme that catalyses reaction r4'
+mechanism = 'modular_rate_law'
+
+[[reactions]]
+id = 'r5'
+name = 'reaction number 5'
+stoichiometry = { M2_c = -1, M2_e = 1 }
+[[reactions.enzymes]]
+id = 'r5'
+name = 'the enzyme that catalyses reaction r5'
+mechanism = 'modular_rate_law'
+
+[[reactions]]
+id = 'r6'
+name = 'reaction number 6'
+stoichiometry = { M2_c = -1, M3_c = 1 }
+[[reactions.enzymes]]
+id = 'r6'
+name = 'the enzyme that catalyses reaction r6'
+mechanism = 'modular_rate_law'
+
+
+[[experiments]]
+id = 'condition_1'
+metadata = "A bat got in the bioreactor."
+metabolite_measurements = [
+  { target_id = 'M1_e', value = 3.3, uncertainty = 0.1 },
+  { target_id = 'M2_e', value = 1, uncertainty = 0.1 },
+  { target_id = 'M4_e', value = 1.34, uncertainty = 0.1 }
+  { target_id = 'M2_c', value = 1.56, uncertainty = 0.05 },
+  { target_id = 'M3_c', value = 1.07, uncertainty = 0.05 },
+  { target_id = 'M4_c', value = 3.41, uncertainty = 0.05 },
+]
+reaction_measurements = [
+  { target_id = 'r1', value = 0.14, uncertainty = 0.05 },
+]
+enzyme_measurements = [
+  { target_id = 'r1', value = 1, uncertainty = 0.05 },
+  { target_id = 'r2', value = 1.5, uncertainty = 0.05 },
+  { target_id = 'r3', value = 2, uncertainty = 0.05 },
+  { target_id = 'r4', value = 1.5, uncertainty = 0.05 },
+  { target_id = 'r5', value = 1.5, uncertainty = 0.05 },
+  { target_id = 'r6', value = 1, uncertainty = 0.05 },
+
+]
+
+[[experiments]]
+id = 'condition_2'
+metadata = "I may have mixed up some/all of the numbers."
+metabolite_measurements = [
+  { target_id = 'M1_e', value = 2.4, uncertainty = 0.1 },
+  { target_id = 'M2_e', value = 1.1, uncertainty = 0.1 },
+  { target_id = 'M4_e', value = 0.54, uncertainty = 0.1 }
+  { target_id = 'M2_c', value = 1.23, uncertainty = 0.05 },
+  { target_id = 'M3_c', value = 1.83, uncertainty = 0.05 },
+  { target_id = 'M4_c', value = 5.42, uncertainty = 0.05 },
+]
+reaction_measurements = [
+  { target_id = 'r1', value = 0.13, uncertainty = 0.05 },
+]
+enzyme_measurements = [
+  { target_id = 'r1', value = 1, uncertainty = 0.05 },
+  { target_id = 'r2', value = 1, uncertainty = 0.05 },
+  { target_id = 'r3', value = 1, uncertainty = 0.05 },
+  { target_id = 'r4', value = 1, uncertainty = 0.05 },
+  { target_id = 'r5', value = 1, uncertainty = 0.05 },
+  { target_id = 'r6', value = 1, uncertainty = 0.05 },
+]
+
+[priors.kinetic_parameters]
+r1 = [
+  { target_id = 'Kcat1', location = 1.1, scale = 0.5 },
+  { target_id = 'Kp', location = 1, scale = 0.6 },
+  { target_id = 'Ka', location = 1, scale = 0.5 },
+  { target_id = 'dissociation_constant_t', metabolite = 'M4_c', location = 1, scale = 0.6 },
+  { target_id = 'transfer_constant', location= 1, scale = 0.6},
+]
+r2 = [
+  { target_id = 'Kcat1', location = 0.7, scale = 0.6},
+  { target_id = 'Ka', location = 0.6, scale = 0.6},
+  { target_id = 'Kp', location = 1, scale = 0.6},
+  { target_id = 'Kq', location = 1.2, scale = 0.5},
+]
+r3 = [
+  { target_id = 'Kcat1', location = 2, scale = 0.6},
+  { target_id = 'Kp', location = 2, scale = 0.6},
+  { target_id = 'Ka', location = 1, scale = 0.6},
+]
+r4 = [
+  { target_id = 'Kcat1', location = 2, scale = 0.6},
+  { target_id = 'Kp', location = 1, scale = 0.6},
+  { target_id = 'Ka', location = 1, scale = 0.6},
+]
+r5 = [
+  { target_id = 'Kcat1', location = 2, scale = 0.6},
+  { target_id = 'Kp', location = 2, scale = 0.6},
+  { target_id = 'Ka', location = 1, scale = 0.6},
+]
+r6 = [
+  { target_id = 'Kcat1', location = 2, scale = 0.6},
+  { target_id = 'Kp', location = 2, scale = 0.6},
+  { target_id = 'Ka', location = 1, scale = 0.6},
+]
+
+[priors.thermodynamic_parameters]
+formation_energies = [
+  { target_id = 'M1', location = -1, scale = 0.05},
+  { target_id = 'M2', location = -2, scale = 0.05},
+  { target_id = 'M3', location = -2, scale = 0.05},
+  { target_id = 'M4', location = -2, scale = 0.05},
+]
+

@@ -1,0 +1,4 @@
+#+TITLE: An introduction to Maud
+
+This repository contains a jupyter notebook introduction to Maud, and some
+supporting files.
