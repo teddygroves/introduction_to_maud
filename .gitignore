@@ -1,0 +1,10 @@
+#*
+.#*
+.DS_Store
+.ipynb_checkpoints/*
+*.csv
+*stderr.txt
+*stdout.txt
+*.d
+*.hpp
+venv*
